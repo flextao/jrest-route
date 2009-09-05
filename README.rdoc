@@ -1,0 +1,32 @@
+= jrest-route
+
+Support jrest-route version: 0.0.x
+
+jrest-route aims to build a very simple and small REST route framework.
+
+== What it solves
+
+* Route a REST request URI to a resource controller. For example, in case we define a resource users: 
+
+    Routes routes = new Routes();
+    routes.getResourceMap().add("users", UserResourceController.class);
+
+    UserResourceController is a subclass of com.flextao.rest.ResourceController.
+* Provides a simple RestServlet, using servlet init-params to define resource, see: com.flextao.rest.http.RestServlet
+* Provides a simple abstract Basic Authentication filter implementation, see: com.flextao.rest.http.AbstractBasicAuthFilter
+* Currently only support json format.
+
+== Dependencies
+
+runtime jars:
+
+  gson-1.3.jar for json format
+  servlet-api-2.5-6.1.1.jar 
+
+== License
+
+jrest-route is available under an MIT License Copyright (c) 2009 Flextao.
+
+== Author
+
+Li Xiao <xli@flextao.com>

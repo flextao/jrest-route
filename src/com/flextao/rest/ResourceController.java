@@ -1,11 +1,3 @@
-/******************************************************************************
-
- * 杭州昼韬信息技术有限公司版权所有。
-
- * 本源代码所包含的以及第三方所授权的知识产权均归杭州昼韬信息技术有限公司所有。
- * 本源代码及所包含的知识产权仅限于由得到杭州昼韬信息技术有限公司版权许可的公司或个人使用。
-
- ***********************************************************************/
 
 package com.flextao.rest;
 
@@ -13,6 +5,13 @@ import java.util.List;
 
 import com.google.gson.Gson;
 
+/**
+ * Extends this class to implement your own resource controller to process
+ * list/show/create/update/destroy action on resource
+ * 
+ * @param <R>
+ *            Resource
+ */
 public abstract class ResourceController<R> {
     private ResourceRequest request;
     private ResourceResponse response;
@@ -32,19 +31,22 @@ public abstract class ResourceController<R> {
 
     /**
      * @param resourceId
-     * @return Resource object showed, it means resource not found when return null
+     * @return Resource object showed, it means resource not found when return
+     *         null
      */
     public abstract R show(String resourceId);
 
     /**
      * @param resourceId
-     * @return Resource object updated, it means resource not found when return null
+     * @return Resource object updated, it means resource not found when return
+     *         null
      */
     public abstract R update(String resourceId);
 
     /**
      * @param resourceId
-     * @return Resource object destroyed, it means resource not found when return null
+     * @return Resource object destroyed, it means resource not found when
+     *         return null
      */
     public abstract R destroy(String resourceId);
 
