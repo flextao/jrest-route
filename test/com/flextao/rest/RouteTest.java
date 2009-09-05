@@ -15,6 +15,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.flextao.rest.test.TestResourceRequest;
+import com.flextao.rest.test.TestResourceResponse;
 import com.google.gson.Gson;
 
 public class RouteTest {

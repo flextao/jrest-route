@@ -7,7 +7,9 @@
 
  ***********************************************************************/
 
-package com.flextao.rest;
+package com.flextao.rest.test;
+
+import com.flextao.rest.ResourceResponse;
 
 
 public class TestResourceResponse implements ResourceResponse {

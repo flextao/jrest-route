@@ -43,13 +43,13 @@
 	</target>
 
 	<target name="xjar">
-		<jar destfile="${targets.dist.dir}/jruote.jar">
+		<jar destfile="${targets.dist.dir}/jrest-ruote.jar">
 			<fileset dir="${targets.classes.dir}" />
 		</jar>
 	</target>
 
 	<target name="srcjar">
-		<jar destfile="${targets.dist.dir}/jruote-java-src.jar">
+		<jar destfile="${targets.dist.dir}/jrest-ruote-src.jar">
 			<fileset dir="${src.dir}" />
 		</jar>
 	</target>

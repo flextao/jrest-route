@@ -9,8 +9,6 @@
 
 package com.flextao.rest;
 
-import java.lang.reflect.Method;
-
 import com.google.gson.Gson;
 
 public class Routes {

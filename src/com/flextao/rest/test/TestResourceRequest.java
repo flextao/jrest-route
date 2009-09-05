@@ -7,10 +7,12 @@
 
  ***********************************************************************/
 
-package com.flextao.rest;
+package com.flextao.rest.test;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import com.flextao.rest.ResourceRequest;
 
 public class TestResourceRequest implements ResourceRequest {
 
