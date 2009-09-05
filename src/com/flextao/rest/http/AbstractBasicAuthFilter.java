@@ -78,7 +78,6 @@ public abstract class AbstractBasicAuthFilter implements Filter {
     private void doFilterHttp(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException,
             ServletException {
         String header = request.getHeader(AUTHORIZATION_HEADER_NAME);
-        log("Authorization header: " + header);
 
         if (!isBasicAuth(header)) {
             unauthorizedRequest(response);
