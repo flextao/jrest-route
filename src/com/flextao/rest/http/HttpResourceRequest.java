@@ -21,13 +21,15 @@ import com.flextao.rest.URIConverter;
 public class HttpResourceRequest implements ResourceRequest {
 
     private final HttpServletRequest req;
+    private final URIConverter converter;
 
-    public HttpResourceRequest(HttpServletRequest req) {
+    public HttpResourceRequest(HttpServletRequest req, URIConverter converter) {
         this.req = req;
+        this.converter = converter;
     }
 
     public String getResourceURI() {
-        return URIConverter.getInstance().resourceURI(req.getContextPath(), req.getRequestURI());
+        return converter.resourceURI(req.getContextPath(), req.getRequestURI());
     }
 
     @SuppressWarnings("unchecked")

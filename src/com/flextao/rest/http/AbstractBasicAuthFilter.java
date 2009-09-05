@@ -86,12 +86,11 @@ public abstract class AbstractBasicAuthFilter implements Filter {
         }
 
         if (decodeAndAuthorize(header)) {
+            authSuccessDoFilter(request, response, chain);
+        } else {
             log("Authentication Forbidden");
             response.setStatus(HttpStatus.FORBIDDEN);
-            return;
         }
-
-        authSuccessDoFilter(request, response, chain);
     }
 
     private void unauthorizedRequest(HttpServletResponse response) {

@@ -36,7 +36,7 @@ public class RouteTest {
         response = new TestResourceResponse();
         dao = AResourceDao.getInstance();
         resourceName = "test_resource";
-        route.map().add(resourceName, AResourceController.class);
+        route.getResourceMap().add(resourceName, AResourceController.class);
     }
 
     @After

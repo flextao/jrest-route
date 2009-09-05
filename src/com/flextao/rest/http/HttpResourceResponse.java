@@ -21,10 +21,12 @@ public class HttpResourceResponse implements ResourceResponse {
 
     private final HttpServletResponse resp;
     private final HttpServletRequest req;
+    private final URIConverter converter;
 
-    public HttpResourceResponse(HttpServletRequest req, HttpServletResponse resp) {
+    public HttpResourceResponse(HttpServletRequest req, HttpServletResponse resp, URIConverter converter) {
         this.req = req;
         this.resp = resp;
+        this.converter = converter;
     }
 
     public void write(String body) {
@@ -36,7 +38,7 @@ public class HttpResourceResponse implements ResourceResponse {
     }
 
     public void createdResourceURI(String uri) {
-        String requestURI = URIConverter.getInstance().requestURI(req.getContextPath(), uri);
+        String requestURI = converter.requestURI(req.getContextPath(), uri);
         this.resp.addHeader("created", requestURI);
     }
 

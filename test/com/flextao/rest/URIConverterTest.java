@@ -17,8 +17,9 @@ public class URIConverterTest {
 
     @Test
     public void resourceURI() {
-        URIConverter.getInstance().setResourcePrefix("resources");
-        String result = URIConverter.getInstance().resourceURI("/doit", "/doit/resources/task");
+        URIConverter converter = new URIConverter();
+        converter.setResourcePrefix("resources");
+        String result = converter.resourceURI("/doit", "/doit/resources/task");
         assertEquals("task", result);
     }
 }

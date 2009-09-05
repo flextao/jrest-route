@@ -10,11 +10,6 @@
 package com.flextao.rest;
 
 public class URIConverter {
-    private static URIConverter instance = new URIConverter();
-
-    public static URIConverter getInstance() {
-        return instance;
-    }
 
     private String resourcePrefix = "";
 
