@@ -85,7 +85,7 @@ public abstract class AbstractBasicAuthFilter implements Filter {
     }
 
     private void unauthorizedRequest(HttpServletResponse response) {
-        log("Unauthorized request");
+        log("Unauthorized request, response www-authenticate header");
         response.addHeader(WWW_AUTHENTICATE_HEADER_NAME, "Basic realm=\"Welcome\"");
         response.setStatus(HttpStatus.UNAUTHORIZED);
     }
