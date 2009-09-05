@@ -1,4 +1,3 @@
-
 package com.flextao.rest.test;
 
 import java.util.HashMap;
@@ -24,16 +23,20 @@ public class TestResourceRequest implements ResourceRequest {
         params.put(name, value);
     }
 
-    public Map<String, String> getParams() {
-        return params;
-    }
-
     public void setBody(String input) {
         this.input = input;
     }
 
     public String getInputContent() {
         return this.input;
+    }
+
+    public String getParameter(String name) {
+        return params.get(name);
+    }
+
+    public String[] getParameterValues(String name) {
+        return null;
     }
 
 }

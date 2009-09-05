@@ -1,7 +1,6 @@
 
 package com.flextao.rest;
 
-import java.util.Map;
 
 public interface ResourceRequest {
 
@@ -19,9 +18,14 @@ public interface ResourceRequest {
     String getResourceURI();
 
     /**
-     * @return original request parameters.
+     * @return parameter value
      */
-    Map<String, String> getParams();
+    String getParameter(String name);
+
+    /**
+     * @return parameter values
+     */
+    String[] getParameterValues(String name);
 
     /**
      * @return the input content, it's probably from an input stream

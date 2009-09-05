@@ -2,7 +2,6 @@
 package com.flextao.rest.http;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,9 +23,12 @@ public class HttpResourceRequest implements ResourceRequest {
         return converter.resourceURI(req.getContextPath(), req.getRequestURI());
     }
 
-    @SuppressWarnings("unchecked")
-    public Map<String, String> getParams() {
-        return req.getParameterMap();
+    public String getParameter(String name) {
+        return req.getParameter(name);
+    }
+
+    public String[] getParameterValues(String name) {
+        return req.getParameterValues(name);
     }
 
     public String getInputContent() {

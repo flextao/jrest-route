@@ -1,4 +1,3 @@
-
 package com.flextao.rest;
 
 import java.util.Arrays;
@@ -10,7 +9,7 @@ public class AResourceController extends ResourceController<AResource> {
 
     @Override
     public List<AResource> list() {
-        String id = getRequest().getParams().get("id");
+        String id = getRequest().getParameter("id");
         if (id != null) {
             return Arrays.asList(dao.findResourceById(id));
         } else {
