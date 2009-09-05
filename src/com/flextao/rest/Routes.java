@@ -1,11 +1,18 @@
-
 package com.flextao.rest;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import com.google.gson.Gson;
 
 public class Routes {
     private ResourceMap resourceMap = new ResourceMap();
     private URIConverter uriConverter = new URIConverter();
+    private Map<String, Format> formats = new HashMap<String, Format>();
+
+    public Routes() {
+        formats.put("json", new JsonFormat(new Gson()));
+    }
 
     public URIConverter getURIConverter() {
         return uriConverter;
@@ -16,30 +23,31 @@ public class Routes {
     }
 
     public void doGet(ResourceRequest request, ResourceResponse response) {
-        Route route = new Route(request, response, resourceMap);
-        Object result = route.doGet();
-        response.write(format(result));
+        Route route = newRoute(request, response);
+        response.write(route.doGet());
     }
 
     public void doPost(ResourceRequest request, ResourceResponse response) {
-        Route route = new Route(request, response, resourceMap);
+        Route route = newRoute(request, response);
         String resourceURI = route.create();
         response.createdResourceURI(resourceURI);
     }
 
     public void doPut(ResourceRequest request, ResourceResponse response) {
-        Route route = new Route(request, response, resourceMap);
-        Object result = route.update();
-        response.write(format(result));
+        Route route = newRoute(request, response);
+        response.write(route.update());
     }
 
     public void doDelete(ResourceRequest request, ResourceResponse response) {
-        Route route = new Route(request, response, resourceMap);
+        Route route = newRoute(request, response);
         route.destroy();
     }
 
-    private String format(Object result) {
-        Gson gson = new Gson();
-        return gson.toJson(result);
+    private Route newRoute(ResourceRequest request, ResourceResponse response) {
+        return new Route(request, response, resourceMap, formats);
+    }
+
+    public Map<String, Format> getFormats() {
+        return formats;
     }
 }

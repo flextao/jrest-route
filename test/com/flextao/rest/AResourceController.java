@@ -19,10 +19,9 @@ public class AResourceController extends ResourceController<AResource> {
     }
 
     @Override
-    public String create() {
-        AResource res = parse(AResource.class);
-        dao.add(res);
-        return String.valueOf(res.getId());
+    public String create(AResource resource) {
+        dao.add(resource);
+        return String.valueOf(resource.getId());
     }
 
     @Override
@@ -31,13 +30,12 @@ public class AResourceController extends ResourceController<AResource> {
     }
 
     @Override
-    public AResource update(String resourceId) {
+    public AResource update(String resourceId, AResource resource) {
         AResource res = dao.findResourceById(resourceId);
         if (res == null) {
             return null;
         }
-        AResource updated = parse(AResource.class);
-        res.setName(updated.getName());
+        res.setName(resource.getName());
         return res;
     }
 

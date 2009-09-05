@@ -1,4 +1,3 @@
-
 package com.flextao.rest;
 
 import java.text.DateFormat;
@@ -6,7 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Formatter {
+public class DateHelper {
     public static String formateDate(Date date) {
         if (date == null) {
             return null;

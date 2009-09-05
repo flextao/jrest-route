@@ -1,7 +1,7 @@
-
 package com.flextao.rest;
 
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class Route {
 
@@ -9,41 +9,59 @@ public class Route {
     private final ResourceResponse response;
     private final ResourceMap map;
     private final ResourceInfo info;
+    private final ResourceController<?> resourceController;
+    private final Format format;
 
-    public Route(ResourceRequest request, ResourceResponse response, ResourceMap map) {
+    public Route(ResourceRequest request, ResourceResponse response, ResourceMap map, Map<String, Format> formats) {
         this.info = ResourceInfo.from(request.getResourceURI());
+        this.format = formats.get(defaultFormat());
         this.request = request;
         this.response = response;
         this.map = map;
+        this.resourceController = createResourceController();
     }
 
-    public Object doGet() {
-        return info.isList() ? resourceController().list() : onResource("show");
+    public String defaultFormat() {
+        return "json";
+    }
+
+    public String doGet() {
+        Object resource = info.isList() ? resourceController.list() : onResource("show", info.getResourceId());
+        return format.serialize(resource);
     }
 
     public String create() {
-        String resourceId = resourceController().create();
+        String resourceId = callResourceController("create", resourceFromRequest());
         return F.uri(info.getResourceName(), resourceId);
     }
 
-    public Object update() {
-        return onResource("update");
+    public String update() {
+        return format.serialize(onResource("update", info.getResourceId(), resourceFromRequest()));
     }
 
     public void destroy() {
-        onResource("destroy");
+        onResource("destroy", info.getResourceId());
     }
 
-    private Object onResource(String method) {
-        Method behaviour = F.getMethod(ResourceController.class, method);
-        Object res = F.invoke(behaviour, resourceController(), info.getResourceId());
+    private Object onResource(String method, Object... args) {
+        Object res = callResourceController(method, args);
         if (res == null) {
             throw new ResourceNotFoundException(info);
         }
         return res;
     }
 
-    private ResourceController<?> resourceController() {
+    @SuppressWarnings("unchecked")
+    private <T> T callResourceController(String method, Object... args) {
+        Method behaviour = F.getMethod(ResourceController.class, method);
+        return (T) F.invoke(behaviour, resourceController, args);
+    }
+
+    private Object resourceFromRequest() {
+        return format.deserialize(request.getInputContent(), resourceController.resourceClass());
+    }
+
+    private ResourceController<?> createResourceController() {
         try {
             ResourceController<?> instance = resourceControllerClass().newInstance();
             instance.initialize(request, response);
