@@ -50,7 +50,7 @@ public class RouteTest {
         dao.add(new AResource(2));
         dao.add(new AResource(3));
         request.setResourceUri(resourceName);
-        request.addParam("id", "2");
+        request.addParam("resource_id", "2");
         route.doGet(request, response);
         AResource[] resources = responseResources();
         assertEquals(1, resources.length);
@@ -131,6 +131,18 @@ public class RouteTest {
         } catch (ResourceNotFoundException e) {
             assertTrue(e.getMessage().contains("321.."));
         }
+    }
+
+    @Test
+    public void get_list_of_resources_by_param_in_resource_uri() {
+        dao.add(new AResource(1));
+        dao.add(new AResource(2));
+        dao.add(new AResource(3));
+        request.setResourceUri("resources/2/" + resourceName);
+        route.doGet(request, response);
+        AResource[] resources = responseResources();
+        assertEquals(1, resources.length);
+        assertEquals(2, resources[0].getId());
     }
 
     private AResource[] responseResources() {

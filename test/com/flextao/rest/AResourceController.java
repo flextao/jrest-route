@@ -9,7 +9,7 @@ public class AResourceController extends ResourceController<AResource> {
 
     @Override
     public List<AResource> list() {
-        String id = getRequest().getParameter("id");
+        String id = getRequest().getParameter("resource_id");
         if (id != null) {
             return Arrays.asList(dao.findResourceById(id));
         } else {

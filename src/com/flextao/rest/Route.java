@@ -14,7 +14,7 @@ public class Route {
 
     public Route(ResourceRequest request, ResourceResponse response, ResourceMap map, Map<String, Format> formats) {
         this.info = ResourceInfo.from(request.getResourceURI());
-        this.request = request;
+        this.request = new ResourceRequestWithExtParams(request, this.info.getResourceRequestParams());
         this.response = response;
         this.map = map;
         this.format = formats.get(this.info.getFormatName());
