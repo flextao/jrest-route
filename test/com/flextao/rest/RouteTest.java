@@ -1,7 +1,8 @@
-
 package com.flextao.rest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import org.junit.After;
 import org.junit.Before;
@@ -118,6 +119,18 @@ public class RouteTest {
     public void should_throw_resource_not_found_exception_when_trying_to_destroy_a_resource_with_wrong_id() {
         request.setResourceUri(resourceName + "/321");
         route.doDelete(request, response);
+    }
+
+    @Test
+    public void should_throw_resource_not_found_exception_when_resource_uri_is_invalid() {
+        dao.add(new AResource(321));
+        request.setResourceUri(resourceName + "/321..");
+        try {
+            route.doGet(request, response);
+            fail();
+        } catch (ResourceNotFoundException e) {
+            assertTrue(e.getMessage().contains("321.."));
+        }
     }
 
     private AResource[] responseResources() {
