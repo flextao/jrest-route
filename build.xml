@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="jrest-ruote" basedir="." default="jar">
+<project name="jrest-route" basedir="." default="jar">
 	<property name="libs.dir" value="${basedir}/lib" />
 	<property name="src.dir" value="${basedir}/src" />
 	<property name="test.dir" value="${basedir}/test" />
@@ -43,13 +43,13 @@
 	</target>
 
 	<target name="xjar">
-		<jar destfile="${targets.dist.dir}/jrest-ruote.jar">
+		<jar destfile="${targets.dist.dir}/jrest-route.jar">
 			<fileset dir="${targets.classes.dir}" />
 		</jar>
 	</target>
 
 	<target name="srcjar">
-		<jar destfile="${targets.dist.dir}/jrest-ruote-src.jar">
+		<jar destfile="${targets.dist.dir}/jrest-route-src.jar">
 			<fileset dir="${src.dir}" />
 		</jar>
 	</target>
