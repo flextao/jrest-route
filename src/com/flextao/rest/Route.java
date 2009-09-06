@@ -14,15 +14,14 @@ public class Route {
 
     public Route(ResourceRequest request, ResourceResponse response, ResourceMap map, Map<String, Format> formats) {
         this.info = ResourceInfo.from(request.getResourceURI());
-        this.format = formats.get(defaultFormat());
         this.request = request;
         this.response = response;
         this.map = map;
+        this.format = formats.get(this.info.getFormatName());
+        if (this.format == null) {
+            throw new ResourceNotFoundException(info);
+        }
         this.resourceController = createResourceController();
-    }
-
-    public String defaultFormat() {
-        return "json";
     }
 
     public String doGet() {

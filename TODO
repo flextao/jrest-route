@@ -1,5 +1,4 @@
 
 * support map 'users/id/tasks' => task controller with param user_id = id
 * support custom format, e.g. xml
-* recognize format from uri 
 * handle exception to response right format
