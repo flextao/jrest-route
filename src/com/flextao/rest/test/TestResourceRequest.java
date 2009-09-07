@@ -10,6 +10,7 @@ public class TestResourceRequest implements ResourceRequest {
     private String resourceUri;
     private Map<String, String> params = new HashMap<String, String>();
     private String input;
+    private String contentType;
 
     public String getResourceURI() {
         return resourceUri;
@@ -37,6 +38,14 @@ public class TestResourceRequest implements ResourceRequest {
 
     public String[] getParameterValues(String name) {
         return null;
+    }
+
+    public String getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
     }
 
 }

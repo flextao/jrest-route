@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.flextao.rest.F;
 import com.flextao.rest.ResourceController;
+import com.flextao.rest.ResourceRequest;
 import com.flextao.rest.Routes;
 
 /**
@@ -70,7 +71,7 @@ public class RestServlet extends HttpServlet {
         return new HttpResourceResponse(req, resp, routes.getURIConverter());
     }
 
-    private HttpResourceRequest asResourceRequest(HttpServletRequest req) {
+    private ResourceRequest asResourceRequest(HttpServletRequest req) {
         return new HttpResourceRequest(req, routes.getURIConverter());
     }
 }

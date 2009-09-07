@@ -11,12 +11,16 @@ import com.flextao.rest.URIConverter;
 
 public class HttpResourceRequest implements ResourceRequest {
 
-    private final HttpServletRequest req;
+    public final HttpServletRequest req;
     private final URIConverter converter;
 
     public HttpResourceRequest(HttpServletRequest req, URIConverter converter) {
         this.req = req;
         this.converter = converter;
+    }
+
+    public String getContentType() {
+        return this.req.getContentType();
     }
 
     public String getResourceURI() {

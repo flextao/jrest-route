@@ -1,2 +1,6 @@
 
 * support map 'users/id/tasks' => task controller with param user_id = id
+
+* get input content format type from request content type
+
+* added new format XmlFormat

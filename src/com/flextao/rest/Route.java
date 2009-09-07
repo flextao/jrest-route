@@ -10,23 +10,20 @@ public class Route {
     private final ResourceMap map;
     private final ResourceInfo info;
     private final ResourceController<?> resourceController;
-    private final Format format;
+    private final Map<String, Format> formats;
 
     public Route(ResourceRequest request, ResourceResponse response, ResourceMap map, Map<String, Format> formats) {
+        this.formats = formats;
         this.info = ResourceInfo.from(request.getResourceURI());
         this.request = new ResourceRequestWithExtParams(request, this.info.getResourceRequestParams());
         this.response = response;
         this.map = map;
-        this.format = formats.get(this.info.getFormatName());
-        if (this.format == null) {
-            throw new ResourceNotFoundException(info);
-        }
         this.resourceController = createResourceController();
     }
 
     public String doGet() {
         Object resource = info.isList() ? resourceController.list() : onResource("show", info.getResourceId());
-        return format.serialize(resource);
+        return getResponseContentFormat().serialize(resource);
     }
 
     public String create() {
@@ -35,7 +32,7 @@ public class Route {
     }
 
     public String update() {
-        return format.serialize(onResource("update", info.getResourceId(), resourceFromRequest()));
+        return getResponseContentFormat().serialize(onResource("update", info.getResourceId(), resourceFromRequest()));
     }
 
     public void destroy() {
@@ -57,7 +54,27 @@ public class Route {
     }
 
     private Object resourceFromRequest() {
-        return format.deserialize(request.getInputContent(), resourceController.resourceClass());
+        return getRequestContentFormat().deserialize(request.getInputContent(), resourceController.resourceClass());
+    }
+
+    private Format getResponseContentFormat() {
+        Format format = formats.get(this.info.getFormatName());
+        if (format == null) {
+            throw new ResourceNotFoundException(info);
+        }
+        return format;
+    }
+
+    private Format getRequestContentFormat() {
+        if (F.isBlank(request.getContentType())) {
+            return formats.get(ResourceRequest.DEFAULT_CONTENT_TYPE);
+        }
+        String type = Mime.MIME_TYPES.get(request.getContentType());
+        Format format = formats.get(type);
+        if (format == null) {
+            throw new ResourceNotFoundException(info);
+        }
+        return format;
     }
 
     private ResourceController<?> createResourceController() {

@@ -1,6 +1,6 @@
 = jrest-route
 
-Support jrest-route version: 0.0.x
+Support jrest-route version: 1.x.x
 
 jrest-route aims to build a very simple and small REST route framework.
 
@@ -9,23 +9,26 @@ jrest-route aims to build a very simple and small REST route framework.
 * Route a REST request URI to a resource controller. For example, in case we define a resource users: 
 
     Routes routes = new Routes();
+    // UserResourceController is a subclass of com.flextao.rest.ResourceController.
     routes.getResourceMap().add("users", UserResourceController.class);
 
     Then, delegate:
+
        HttpServlet#doGet         => Routes#doGet
        HttpServlet#doPost        => Routes#doPost
        HttpServlet#doDelete      => Routes#doDelete
        HttpServlet#doPut         => Routes#doPut
+
     (see com.flextao.rest.http.RestServlet how it works)
 
-    Then:
+    Then you get:
+
        GET    http://domain:port/contextPath/users    maps to the UserResourceController#list action
        GET    http://domain:port/contextPath/users/id maps to the UserResourceController#show action
        POST   http://domain:port/contextPath/users    maps to the UserResourceController#create action
        PUT    http://domain:port/contextPath/users/id maps to the UserResourceController#update action
        DELETE http://domain:port/contextPath/users/id maps to the UserResourceController#delete action
 
-    UserResourceController is a subclass of com.flextao.rest.ResourceController.
 
 * Provides a simple RestServlet, using servlet init-params to define resource, see: com.flextao.rest.http.RestServlet
 * Provides a simple abstract Basic Authentication filter implementation,       see: com.flextao.rest.http.AbstractBasicAuthFilter

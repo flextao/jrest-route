@@ -3,15 +3,18 @@ package com.flextao.rest;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.google.gson.Gson;
+import com.flextao.rest.format.JsonFormat;
+import com.flextao.rest.format.XmlFormat;
 
 public class Routes {
+
     private ResourceMap resourceMap = new ResourceMap();
     private URIConverter uriConverter = new URIConverter();
     private Map<String, Format> formats = new HashMap<String, Format>();
 
     public Routes() {
-        formats.put("json", new JsonFormat(new Gson()));
+        formats.put("json", new JsonFormat());
+        formats.put("xml", new XmlFormat());
     }
 
     public URIConverter getURIConverter() {
