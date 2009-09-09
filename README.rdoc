@@ -29,7 +29,7 @@ jrest-route aims to build a very simple and small REST route framework.
         => response the user resource found by id as response body
       POST   http://domain:port/contextPath/users    maps to the UserResourceController#create action
         => post with the user resource as request body (json format content as default)
-        => response a header named 'created' with created resource uri
+        => response a header named 'Location' with created resource uri
       PUT    http://domain:port/contextPath/users/id maps to the UserResourceController#update action
         => post with the user resource as request body (json format content as default)
         => response the user resource updated as response body
