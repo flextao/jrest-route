@@ -1,4 +1,3 @@
-
 package com.flextao.rest.http;
 
 import java.io.IOException;
@@ -42,5 +41,4 @@ public class HttpResourceRequest implements ResourceRequest {
             throw new RuntimeException(e);
         }
     }
-
 }

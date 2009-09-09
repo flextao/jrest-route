@@ -62,6 +62,7 @@ public class Route {
         if (format == null) {
             throw new ResourceNotFoundException(info);
         }
+        response.setFormat(format);
         return format;
     }
 

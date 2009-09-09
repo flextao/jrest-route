@@ -13,4 +13,9 @@ public interface ResourceResponse {
      * @param uri it is a relative uri, see {@link ResourceRequest#getResourceURI()}
      */
     void createdResourceURI(String uri);
+
+    /**
+     * set response format
+     */
+    void setFormat(Format format);
 }

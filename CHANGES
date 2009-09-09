@@ -4,3 +4,6 @@
 * get input content format type from request content type
 
 * added new format XmlFormat
+
+* decode request content as JVM file.encoding, and encode response content as JVM file.encoding
+

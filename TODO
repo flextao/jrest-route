@@ -1,3 +1,4 @@
 
 * recognize request 'Accept' header to response right format content
 * handle exception to response right format
+* use Location instead of created in response header after created resource

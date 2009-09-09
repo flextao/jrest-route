@@ -6,7 +6,7 @@ jrest-route aims to build a very simple and small REST route framework.
 
 == What it solves
 
-* Route a REST request URI to a resource controller. For example, in case we define a resource users: 
+* Route a REST request to a resource controller. For example, in case we define a resource users: 
 
     Routes routes = new Routes();
     // UserResourceController is a subclass of com.flextao.rest.ResourceController.

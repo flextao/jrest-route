@@ -1,4 +1,3 @@
-
 package com.flextao.rest;
 
 import java.io.BufferedReader;
@@ -15,8 +14,11 @@ import java.util.Iterator;
 import java.util.List;
 
 public class F {
-    public static String read(InputStream in) throws IOException {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+    public static String read(InputStream in, String charset) throws IOException {
+        return read(new BufferedReader(new InputStreamReader(in, charset)));
+    }
+
+    public static String read(BufferedReader reader) throws IOException {
         StringBuffer buffer = new StringBuffer();
         try {
             while (true) {
@@ -28,9 +30,13 @@ public class F {
                 buffer.append(cbuf, 0, len);
             }
         } finally {
-            in.close();
+            reader.close();
         }
         return buffer.toString();
+    }
+
+    public static String read(InputStream in) throws IOException {
+        return read(in, System.getProperty("file.encoding"));
     }
 
     public static String uri(String... args) {

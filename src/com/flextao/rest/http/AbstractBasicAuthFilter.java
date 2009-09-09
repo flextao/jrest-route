@@ -1,4 +1,3 @@
-
 package com.flextao.rest.http;
 
 import java.io.IOException;

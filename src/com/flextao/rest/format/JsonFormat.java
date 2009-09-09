@@ -1,6 +1,7 @@
 package com.flextao.rest.format;
 
 import com.flextao.rest.Format;
+import com.flextao.rest.Mime;
 import com.google.gson.Gson;
 
 public class JsonFormat implements Format {
@@ -21,6 +22,10 @@ public class JsonFormat implements Format {
 
     public String serialize(Object obj) {
         return gson.toJson(obj);
+    }
+
+    public String mimeType() {
+        return Mime.JSON;
     }
 
 }

@@ -1,4 +1,3 @@
-
 package com.flextao.rest.http;
 
 import java.io.IOException;
@@ -6,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.flextao.rest.Format;
 import com.flextao.rest.ResourceResponse;
 import com.flextao.rest.URIConverter;
 
@@ -24,6 +24,7 @@ public class HttpResourceResponse implements ResourceResponse {
     public void write(String body) {
         try {
             resp.getWriter().print(body);
+            resp.getWriter().flush();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,6 +33,11 @@ public class HttpResourceResponse implements ResourceResponse {
     public void createdResourceURI(String uri) {
         String requestURI = converter.requestURI(req.getContextPath(), uri);
         this.resp.addHeader("created", requestURI);
+    }
+
+    public void setFormat(Format format) {
+        this.resp.setContentType(format.mimeType());
+        this.resp.setCharacterEncoding(System.getProperty("file.encoding"));
     }
 
 }
