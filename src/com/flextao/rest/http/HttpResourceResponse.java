@@ -32,7 +32,7 @@ public class HttpResourceResponse implements ResourceResponse {
 
     public void createdResourceURI(String uri) {
         String requestURI = converter.requestURI(req.getContextPath(), uri);
-        this.resp.addHeader("created", requestURI);
+        this.resp.addHeader("Location", requestURI);
     }
 
     public void setFormat(Format format) {

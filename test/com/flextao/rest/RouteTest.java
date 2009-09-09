@@ -1,6 +1,8 @@
 package com.flextao.rest;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -55,6 +57,18 @@ public class RouteTest {
         AResource[] resources = responseResources();
         assertEquals(1, resources.length);
         assertEquals(2, resources[0].getId());
+    }
+
+    @Test
+    public void get_list_of_resources_by_with_format_set_in_response() {
+        dao.add(new AResource(1));
+        dao.add(new AResource(2));
+        dao.add(new AResource(3));
+        request.setResourceUri(resourceName);
+        request.addParam("resource_id", "2");
+        assertNull(response.getFormat());
+        route.doGet(request, response);
+        assertNotNull(response.getFormat());
     }
 
     @Test
