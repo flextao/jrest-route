@@ -71,7 +71,7 @@ public abstract class AbstractBasicAuthFilter implements Filter {
         String header = request.getHeader(AUTHORIZATION_HEADER_NAME);
 
         if (!isBasicAuth(header)) {
-            unauthorizedRequest(response);
+            unauthorizedRequest(request, response);
             return;
         }
 
@@ -83,8 +83,8 @@ public abstract class AbstractBasicAuthFilter implements Filter {
         }
     }
 
-    private void unauthorizedRequest(HttpServletResponse response) {
-        log("Unauthorized request, response www-authenticate header");
+    private void unauthorizedRequest(HttpServletRequest request, HttpServletResponse response) {
+        log("Unauthorized request: " + request.getRequestURI() + ", from " + request.getRemoteAddr() + ", response www-authenticate header");
         response.addHeader(WWW_AUTHENTICATE_HEADER_NAME, "Basic realm=\"Welcome\"");
         response.setStatus(HttpStatus.UNAUTHORIZED);
     }
