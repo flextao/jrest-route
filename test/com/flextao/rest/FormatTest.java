@@ -46,10 +46,31 @@ public class FormatTest {
     }
 
     @Test
+    public void use_json_as_default_format() {
+        dao.add(new AResource(1));
+        request.setResourceUri(resourceName);
+        route.doGet(request, response);
+        AResource[] resources = responseResources();
+        assertEquals(1, resources.length);
+    }
+
+    @Test
     public void specify_input_content_format() {
         request.setResourceUri(resourceName);
         request.setBody(new XmlFormat().serialize(new AResource(123)));
         request.setContentType("application/xml");
+        route.doPost(request, response);
+
+        assertEquals(1, dao.resources().size());
+        assertEquals(123, dao.resources().get(0).getId());
+        assertEquals(resourceName + "/123", response.getCreatedResourceURI());
+    }
+
+    @Test
+    public void specify_input_content_format_with_encoding() {
+        request.setResourceUri(resourceName);
+        request.setBody(new XmlFormat().serialize(new AResource(123)));
+        request.setContentType("application/xml; charset=UTF-8");
         route.doPost(request, response);
 
         assertEquals(1, dao.resources().size());

@@ -54,7 +54,8 @@ public class Route {
     }
 
     private Object resourceFromRequest() {
-        return getRequestContentFormat().deserialize(request.getInputContent(), resourceController.resourceClass());
+        String inputContent = request.getInputContent();
+        return getRequestContentFormat().deserialize(inputContent, resourceController.resourceClass());
     }
 
     private Format getResponseContentFormat() {
@@ -70,12 +71,18 @@ public class Route {
         if (F.isBlank(request.getContentType())) {
             return formats.get(ResourceRequest.DEFAULT_CONTENT_TYPE);
         }
-        String type = Mime.MIME_TYPES.get(request.getContentType());
+        
+        String type = Mime.MIME_TYPES.get(mimeType());
         Format format = formats.get(type);
         if (format == null) {
             throw new ResourceNotFoundException(info);
         }
         return format;
+    }
+
+    private String mimeType() {
+        String type = request.getContentType();
+        return type.split(";")[0].trim();
     }
 
     private ResourceController<?> createResourceController() {

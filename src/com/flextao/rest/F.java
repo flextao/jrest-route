@@ -14,6 +14,20 @@ import java.util.Iterator;
 import java.util.List;
 
 public class F {
+
+    public static String parseCharsetFromContentType(String content) {
+        if (content == null) {
+            return null;
+        }
+        String[] contents = content.split(";");
+        for (String one : contents) {
+            if (one.trim().toLowerCase().startsWith("charset")) {
+                return one.split("=")[1].trim();
+            }
+        }
+        return null;
+    }
+
     public static String read(InputStream in, String charset) throws IOException {
         return read(new BufferedReader(new InputStreamReader(in, charset)));
     }

@@ -35,8 +35,12 @@ public class HttpResourceRequest implements ResourceRequest {
     }
 
     public String getInputContent() {
+        String charset = F.parseCharsetFromContentType(getContentType());
+        if (charset == null) {
+            charset = System.getProperty("file.encoding");
+        }
         try {
-            return F.read(req.getInputStream());
+            return F.read(req.getInputStream(), charset);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
